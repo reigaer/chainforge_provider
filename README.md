@@ -12,30 +12,39 @@ I created this because:
 
 ## Quick start
 
-1. Install the tools:
+1. Install LLM globally (if not already installed):
 ```bash
-# Install LLM
+# Install LLM using Homebrew
 brew install llm
 
-# Install ChainForge in a virtual environment
-mkdir chainforge-project && cd chainforge-project
-uv venv --system-site-packages
-source .venv/bin/activate
-pip install chainforge
-```
-
-2. Set up your models:
-```bash
-# Cloud APIs
+# Configure your models
 llm keys set openai
 llm keys set anthropic
 
-# Local models
+# Add any desired plugins
 llm install llm-ollama  # For Ollama
 llm install llm-gguf    # For GGUF models
 ```
 
-3. Connect ChainForge:
+2. Set up ChainForge with system access to LLM:
+```bash
+# Create project directory
+mkdir chainforge-project
+cd chainforge-project
+
+# Create virtual environment with system access
+uv venv --system-site-packages
+source .venv/bin/activate
+
+# Install ChainForge
+pip install chainforge
+
+# Verify LLM is accessible
+which llm
+llm --version
+```
+
+3. Connect ChainForge to LLM:
    - Start ChainForge: `chainforge serve`
    - Open `localhost:8000`
    - Settings → Custom Providers → Add `llm_provider.py`
@@ -44,8 +53,8 @@ llm install llm-gguf    # For GGUF models
 ## Troubleshooting
 
 - **Models not showing**: Re-add the provider
-- **LLM not found**: Check `which llm` and PATH
-- **Access issues**: Verify keys with `llm keys list`
+- **LLM not found**: Ensure virtual environment was created with `--system-site-packages`
+- **Access issues**: Check `llm keys list` in terminal
 
 ## Credits
 
